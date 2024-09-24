@@ -6,4 +6,42 @@ from m in JustMyCode.Methods
 where m.NbLinesOfCode > 2 && !m.IsConstructor
 select new { m, m.NbLinesOfCode }
 ]]></Query>
+  <Group Name="Namensmuster" Active="True" ShownInReport="False">
+    <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Namingpattern Manager is followed</Name>
+warnif count > 0 
+
+let patternName = "Manager"
+let allowedMethods = new string[]{"Add","Remove","Update"}
+let allowedPrefixes = new string []{"Get","Is","Are"}
+
+from t in JustMyCode.Types
+
+let methods = t.Methods.Where(m => !m.IsPropertySetter && !m.IsPropertyGetter && !m.IsConstructor)
+let forbiddenMethods = methods.Where(m => !allowedMethods.Any(m1 => m.SimpleName == m1) 
+                                          && allowedPrefixes.All(mp => !m.SimpleName.StartsWith(mp)))
+where !t.IsGeneratedByCompiler
+ && t.Name.EndsWith(patternName)
+ && forbiddenMethods.Any()
+
+
+select new{t, forbiddenMethods}]]></Query>
+    <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Namingpattern Repository is followed</Name>
+warnif count > 0 
+
+let patternName = "Repository"
+let allowedMethods = new string[]{"Insert","Delete","Update","Query"}
+let allowedPrefixes = new string []{"GetBy"}
+
+from t in JustMyCode.Types
+
+let methods = t.Methods.Where(m => !m.IsPropertySetter && !m.IsPropertyGetter && !m.IsConstructor)
+let forbiddenMethods = methods.Where(m => !allowedMethods.Any(m1 => m.SimpleName == m1) 
+                                          && allowedPrefixes.All(mp => !m.SimpleName.StartsWith(mp)))
+where !t.IsGeneratedByCompiler
+ && t.Name.EndsWith(patternName)
+ && forbiddenMethods.Any()
+
+
+select new{t, forbiddenMethods}]]></Query>
+  </Group>
 </Queries>

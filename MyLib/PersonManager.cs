@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ConsoleClient
+﻿namespace ConsoleClient
 {
-    public class PersonManager
+    public class PersonManager : IPersonManager
     {
-        private readonly PersonRepository _repository;
+        private readonly IPersonRepository _repository;
+        private readonly IPersonParser _parser;
 
-        public PersonManager()
+        public PersonManager(IPersonRepository repository)
         {
-            _repository = new PersonRepository();
+            _repository = repository;
         }
 
         public IQueryable<Person> GetAllAdults()
@@ -21,7 +17,7 @@ namespace ConsoleClient
                 .Where(p => p.Age >= 18);
             return adults;
         }
-
+        
         public IQueryable<Person> GetAllChildren()
         {
             var children = _repository
