@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Queries>
+  <Query Active="True" DisplayList="True" DisplayStat="False" DisplaySelectionView="False" IsCriticalRule="False"><![CDATA[// <Name>Alle Methoden mit mehr als 20 LOC</Name>
+warnif count > 0 
+from m in JustMyCode.Methods
+where m.NbLinesOfCode > 2 && !m.IsConstructor
+select new { m, m.NbLinesOfCode }
+]]></Query>
+</Queries>
