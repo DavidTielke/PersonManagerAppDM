@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MyLib;
 
 namespace ConsoleClient;
 
@@ -10,6 +11,7 @@ public class ServiceCollectionFactory
         collection.AddTransient<IPersonRepository, PersonRepository>();
         collection.AddTransient<IPersonParser, PersonParser>();
         collection.AddTransient<IFileReader, FileReader>();
+        collection.AddSingleton<IConfigurator, MemoryConfigurator>();
 
         return collection;
     }

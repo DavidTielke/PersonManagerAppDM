@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MyLib;
 
 namespace ConsoleClient
 {
@@ -12,6 +13,9 @@ namespace ConsoleClient
             collection.AddTransient<IPersonDisplayCommands, PersonDisplayCommands>();
 
             var provider = collection.BuildServiceProvider();
+
+            var config = provider.GetRequiredService<IConfigurator>();
+            config.SetValue("FilePath", "data.csv");
 
             var commands = provider.GetRequiredService<IPersonDisplayCommands>();
 

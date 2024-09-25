@@ -15,4 +15,10 @@
     <ProjectReference Include="..\MyLib\MyLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="data.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
